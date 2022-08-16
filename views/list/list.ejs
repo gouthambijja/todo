@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%=list.username%></title>
+    <link rel="stylesheet" href="/list.css" />
+  </head>
+  <body>
+    <main>
+      <div class="inner-main">
+        <input
+          type="text"
+          name="newtodo"
+          placeholder="Enter new to do here!"
+          id="newtodo"
+          autocomplete="off"
+        />
+        <div class="add">
+          <button class="add-btn random-add-btn">random todo!</button>
+          <button class="add-btn addbtn">Add it!</button>
+        </div>
+        <section>
+          <ol class="lists">
+            <%if(list.data.length>0){%> <%for (let li of list.data){%>
+            <li class="data"><%=li%></li>
+            <% }}%>
+          </ol>
+        </section>
+      </div>
+    </main>
+    <script src="listsapp.js"></script>
+  </body>
+</html>
