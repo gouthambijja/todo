@@ -21,6 +21,7 @@
           id="username"
           placeholder="username"
           class="username"
+          autocomplete="off"
           required
         />
         <br />
@@ -30,8 +31,12 @@
           name="password"
           id="password"
           placeholder="password"
+          autocomplete="off"
           required
-        />  <BR></BR>
+        />
+        <input class="password-visibility" type="checkbox" id="togglePassword" onclick="myFunction()">
+        <label for="togglePassword">show password</label>
+          <BR></BR>
         <div class="login-signup">
         <button type="submit">signup</button>
         </div>
@@ -44,6 +49,18 @@
         
       </div>
     </main>
+    <script>
+      function myFunction() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+
+    </script>
         <script src="/app.js"></script>
+        
   </body>
 </html>

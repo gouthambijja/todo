@@ -7,6 +7,7 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const Username = require("./user");
 const List = require("./lists");
+const cors = require("cors");
 const sessions = require("express-session");
 const session = require("express-session");
 const methodOverride = require("method-override");
@@ -26,6 +27,7 @@ app.set("view engine", "ejs");
 
 app.use(express.static(__dirname + "/public"));
 app.use(urlencoded({ extended: true }));
+app.use(cors());
 app.use(
   sessions({
     secret: "sharingan key",
@@ -36,8 +38,11 @@ app.use(
 );
 app.use(methodOverride("_method"));
 
-app.get("/", (req, res) => {
-  res.render("list/index");
+app.get("/", async (req, res) => {
+  if (req.session.username !== undefined) {
+    const list = await List.findOne({ username: req.session.username });
+    res.render("list/list", { list });
+  } else res.render("list/index");
 });
 app.get("/kakarot/signup", (req, res) => {
   res.render("list/signup");
@@ -88,8 +93,8 @@ app.get("/kakarot", async (req, res) => {
   const list = await List.findOne({ username: req.session.username });
   res.render("list/list", { list });
 });
-app.get("/kakarot/newtodo/:todo", async (req, res) => {
-  const todo = req.params.todo;
+app.get("/kakarot/newtodo", async (req, res) => {
+  const todo = req.query.string;
   const userdata = await List.findOne({ username: req.session.username });
   userdata.data.push(todo);
   await List.updateOne({ username: req.session.username }, userdata, {

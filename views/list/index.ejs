@@ -19,6 +19,7 @@
           name="username"
           id="username"
           placeholder="username"
+          autocomplete="off"
           required
           
         />
@@ -29,14 +30,29 @@
           name="password"
           id="password"
           placeholder="password"
+          autocomplete="off"
           required
-        />  <BR></BR>
+        />
+        <input class="password-visibility" type="checkbox" id="togglePassword" onclick="myFunction()">
+        <label for="togglePassword">show password</label>
+          <BR></BR>
         <div class="login-signup">
         <button type="submit">login</button>
         <a href="/kakarot/signup" class="a-signup">sign_up</a>
         </div>
       </form>
     </div>
+    <script>
+      function myFunction() {
+  var x = document.getElementById("password");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
+    </script>
   </main>
   </body>
 </html>

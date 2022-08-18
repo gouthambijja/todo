@@ -16,7 +16,8 @@ const input = document.querySelector("#newtodo");
 async function insert() {
   if (input.value !== "") {
     const res = await fetch(
-      `http://localhost:3000/kakarot/newtodo/${input.value}`
+      `http://localhost:3000/kakarot/newtodo?string=${input.value}`,
+      { mode: "no-cors" }
     );
     const nb = document.createElement("li");
     nb.classList.add("data");
@@ -28,21 +29,25 @@ async function insert() {
 add.addEventListener("click", async () => {
   insert();
 });
+
 randamadd.addEventListener("click", async () => {
-  const bored = await fetch("http://www.boredapi.com/api/activity");
+  const bored = await fetch("https://icanhazdadjoke.com", {
+    headers: { Accept: "application/json" },
+  });
   const fbored = await bored.json();
-  console.log(fbored.activity);
   const res = await fetch(
-    `http://localhost:3000/kakarot/newtodo/${fbored.activity}`
+    `http://localhost:3000/kakarot/newtodo?string=${fbored.joke}`,
+    { mode: "no-cors" }
   );
   const nb = document.createElement("li");
   nb.classList.add("data");
-  nb.innerText = `${fbored.activity}`;
+  nb.innerText = `${fbored.joke}`;
   ol.append(nb);
 });
 ol.addEventListener("click", async (e) => {
   const res = await fetch(
-    `http://localhost:3000/kakarot/${e.target.innerText}`
+    `http://localhost:3000/kakarot/${e.target.innerText}`,
+    { mode: "no-cors" }
   );
   e.target.parentNode.removeChild(e.target);
 });
